@@ -28,7 +28,7 @@ config.py            Environment-aware application settings
 Requires Python 3.10+.
 
 ```bash
-cd /home/hakimi-milad-ahmad/Desktop/My_Python/Pro
+cd "$HOME/Desktop/My_Python/My_Portfolio_Website"
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
