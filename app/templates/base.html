@@ -1,0 +1,35 @@
+{% import "_social_icon.html" as icons %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{ page_description }}">
+  {% if profile.domain %}<link rel="canonical" href="{{ profile.domain }}{{ request.path }}">{% endif %}
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{ page_title }}">
+  <meta property="og:description" content="{{ page_description }}">
+  {% if profile.domain %}<meta property="og:url" content="{{ profile.domain }}{{ request.path }}">{% endif %}
+  <title>{{ page_title }}</title>
+  <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg+xml">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Primary navigation">
+      <a class="brand" href="{{ url_for('portfolio.index') }}" aria-label="{{ profile.name }} home"><span aria-hidden="true">MH</span><b>Milad Hakimi</b></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-links"><span class="sr-only">Toggle navigation</span><span aria-hidden="true">Menu</span></button>
+      <div class="nav-links" id="nav-links">
+        <a href="{{ url_for('portfolio.index') }}" {% if request.endpoint == 'portfolio.index' %}aria-current="page"{% endif %}>Home</a>
+        <a href="{{ url_for('portfolio.about') }}" {% if request.endpoint == 'portfolio.about' %}aria-current="page"{% endif %}>About</a>
+        <a href="{{ url_for('portfolio.projects') }}" {% if request.endpoint == 'portfolio.projects' %}aria-current="page"{% endif %}>Projects</a>
+        <a href="{{ url_for('portfolio.contact') }}" {% if request.endpoint == 'portfolio.contact' %}aria-current="page"{% endif %}>Contact</a>
+      </div>
+    </nav>
+  </header>
+  <main id="main-content">{% block content %}{% endblock %}</main>
+  <footer class="site-footer"><div class="container footer-inner"><p>© {{ current_year }} {{ profile.name }}. Built with Flask.</p>{% if configured_profiles %}<nav class="social-links" aria-label="Professional profiles">{% for label, link in configured_profiles.items() %}<a class="social-icon social-{{ label|lower|replace(' ', '-') }}" href="{{ link }}" rel="me noopener" target="_blank">{{ icons.render(label) }}<span class="sr-only">{{ label }} (opens in a new tab)</span></a>{% endfor %}</nav>{% endif %}</div></footer>
+</body>
+</html>
